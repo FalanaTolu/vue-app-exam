@@ -1,22 +1,22 @@
 <template>
     <Layout>
-        <div class="product">
+        <div class="product-container">
             <h2>Product {{ $route.params.id }}</h2>
             <!-- <div v-if="loading" class="loading">Loading...</div>
             <div v-if="error" class="error">{{ error }}</div> -->
-            <ul>
-                <li><strong>Title: </strong>{{ product.title }}</li>
+            <ul class="product">
+                <li><strong>{{ product.title }}</strong></li>
+                <li>
+                    <img :src="product.thumbnail" :alt="product.title" />
+                </li>
+                <li>Description:</li>
+                <li>{{ product.description }}</li>
                 <li><strong>Price: </strong>${{ product.price }}</li>
                 <li><strong>Discount: </strong>{{ product.discountPercentage }}%</li>
                 <li><strong>In Stock: </strong>{{ product.stock }}</li>
-                <li><strong>Description: </strong>{{ product.description }}</li>
                 <li><strong>Rating: </strong>{{ product.rating }}</li>
                 <li><strong>Category: </strong>{{ product.category }}</li>
                 <li><strong>Brand: </strong>{{ product.brand }}</li>
-                <li>
-                    <strong>Image: </strong>
-                    <img :src="product.thumbnail" :alt="product.title" />
-                </li>
                 <!-- <li>
                <strong>Image: </strong> 
                  <img :src="product.images?.[4]" alt=""/>
@@ -133,3 +133,22 @@ export default {
     },
 }
 </script> -->
+
+<style type="text/css">
+.product-container {
+    width: 100%;
+}
+.product{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2em;
+    list-style: none;
+}
+
+.product img {
+    width: 100%;
+}
+</style>

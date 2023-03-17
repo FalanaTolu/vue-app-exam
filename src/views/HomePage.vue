@@ -1,9 +1,10 @@
 <template>
   <div>
     <Layout>
-      <h1>Home</h1>
-      <p>Hello {{ user }}</p>
-      <button v-on:click="logout">Logout</button>
+      <div class="home">
+        <h1>Welcome {{ user }}</h1>
+      </div>
+      
     </Layout>
   </div>
 </template>
@@ -32,13 +33,7 @@ export default {
     },
   },
   methods: {
-    logout() {
-      this.$store.dispatch("auth/logout").then(() => this.$router.push('/login')).catch((error) => console.log(error.message))
-      // this.$store.dispatch("asyncLogout").then(() =>  this.$router.push('/login'))
-      console.log('AuthState:', this.authState);
-      console.log('Logged on:', this.loggedInState);
-      console.log('User:', this.user);
-    },
+ 
   },
   setup() {
     const { user } = useUser()
@@ -54,6 +49,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  text-align: left;
+  padding: 1em;
 }
 </style>
   

@@ -1,12 +1,11 @@
 <template>
-    <main>
-        <Layout>
-            <h1>Products</h1>
-            <p>This is the products page</p>
-            <Loader v-if="this.loading" />
-            <div class="container" v-else>
+    <Layout>
+        <h1>Products</h1>
+        <p>This is the products page</p>
+        <Loader v-if="this.loading" />
+        <main v-else>
+            <div class="container">
                 <div class="products-container" v-for="product in paginatedProducts" :key="product.id">
-                    <!-- <div class="products-container" v-for="product in this.products" :key="product.id"> -->
                     <!-- <div class="products-container" v-for="product in this.$store.state.products.data" :key="product.id"></div> -->
                     <p id="discount">-{{ product.discountPercentage }}%</p>
                     <img :src="product.thumbnail" :alt="product.title" class="product-image" />
@@ -17,40 +16,40 @@
                         <button><router-link :to="{ path: '/products/' + product.id }">Product
                                 Details</router-link></button>
                     </div>
-                </div> 
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                                <button @click.prevent="setPage(1)" class="page-link">{{"<<"}}</button>
-                            </li>   
-                            <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                                <button @click.prevent="setPage(currentPage - 1)" class="page-link">{{"<"}}</button>
-                            </li>
+                </div>
 
-                            <li v-for="page in pages" :key="page"
-                                class="page-item" :class="{ active: currentPage === page }">
-                                <button class="page-link" @click.prevent="setPage(page)">{{ page }}</button>
-                            </li>
-
-                            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                                <button @click.prevent="setPage(currentPage + 1)" class="page-link">{{">"}}</button>
-                            </li> 
-                            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                                <button @click.prevent="setPage(totalPages)" class="page-link">{{">>"}}</button>
-                            </li>
-                            <span>Page {{ this.currentPage }} of {{ this.totalPages }}</span>
-                            <li>
-                                Items per page:<select v-model="this.perPage" name="perPage" id="perPage">
-                                    <option>9</option>
-                                    <option>21</option>
-                                    <option>30</option>
-                                </select>
-                            </li>
-                        </ul>
-                    </nav>
             </div>
-        </Layout>
-    </main>
+            <nav>
+                <span>Showing items {{ this.start + 1 }} to {{ this.end }} of {{ this.products?.length }}</span>
+                <ul class="pagination">
+
+                    <li><button @click.prevent="setPage(1)" class="page-link">{{ "<<" }}</button>
+                    </li>
+
+                    <li><button @click.prevent="setPage(currentPage - 1)" :disabled="currentPage === 1" class="page-link">{{
+                        "<" }}</button>
+                    </li>
+
+                    <li v-for="page in pages" :key="page" class="page-item">
+                        <button class="page-link" :class="{ active: currentPage === page }"
+                            @click.prevent="setPage(page)">{{ page }}</button>
+                    </li>
+
+                    <li><button @click.prevent="setPage(currentPage + 1)" :disabled="currentPage === totalPages"
+                            class="page-link">{{ ">" }}</button></li>
+
+                    <li><button @click.prevent="setPage(totalPages)" class="page-link">{{ ">>" }}</button></li>
+
+                    <li class="select-container"><select v-model="this.perPage" name="perPage" id="perPage">
+                            <option>9</option>
+                            <option>21</option>
+                            <option>30</option>
+                        </select><span>items per page</span>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+    </Layout>
 </template>
 
 <script>
@@ -136,16 +135,20 @@ export default {
         // isLoading() {
         //     return this.$store.state.products.loading
         // },
+        start() {
+            return (this.currentPage - 1) * this.perPage;
+        },
+        end() {
+            return Math.min(this.start + this.perPage, this.products?.length);
+        },
         paginatedProducts() {
-            const start = (this.currentPage - 1) * this.perPage;
-            const end = start + this.perPage;
-            return this.products?.slice(start, end);
+            return this.products?.slice(this.start, this.end);
         },
         totalPages() {
             return Math.ceil(this.products?.length / this.perPage);
         },
         pages() {
-            return  Array.from({ length: this.totalPages }, (value, index) => index + 1)
+            return Array.from({ length: this.totalPages }, (value, index) => index + 1)
         },
     },
     // setup() {
@@ -195,20 +198,24 @@ main {
 }
 
 .container {
-    height: 100%;
+    /* height: 100%; */
     display: grid;
     /* grid-template-columns: 30% 30% 30%; */
     grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: 400px;
+    grid-auto-rows: 400px; /*25em */
     /* grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr; */
     border: 1px solid red;
 }
 
 .products-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border: 1px solid black;
     padding: 10px;
     margin: 10px;
-    /* position: relative; */
+    overflow: hidden;
+    position: relative;
 }
 
 .product-image {
@@ -218,8 +225,8 @@ main {
 }
 
 .product-info {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     text-align: left;
     margin-top: 10px;
 }
@@ -228,10 +235,12 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: absolute; */
-    /* top: 0; */
-    /* left: 0; */
-    right: 10px;
+    position: absolute;
+    top: 1.2em;
+    right: 1em;
+    /* right: 50%; */
+    /* align-self: flex-end; */
+    background-color: #f57c73;
     background-color: palevioletred;
     color: white;
     padding: 5px;
@@ -241,36 +250,88 @@ main {
 }
 
 .pagination {
-    /* width: 100%; */
+    width: 100%;
     display: flex;
-    display: none;
     justify-content: center;
     align-items: center;
-    gap: 1em;
-    border: 1px solid red;
-    margin: 0 auto;
+    gap: .3em;
+    margin: 5px auto;
+    padding-bottom: 5px;
     list-style: none;
-}
-.pagination button {
-    min-width: 2em;
-    height: 2em;
+    white-space: nowrap;
 }
 
-.active {
-    background-color: #4AAE9B;
-    color: #000;
+.pagination button,
+select {
+    min-width: 2em;
+    height: 2em;
+    padding: 5px;
+    border-radius: 5px;
 }
+
+/* .page-link {
+    background-color: aqua;
+    color: white;
+    border: none;
+} */
+
+.active {
+    filter: brightness(60%);
+    /* color: #000; */
+}
+
+nav span {
+        margin: 2px auto;
+        text-align: center;
+    }
 
 @media (max-width: 768px) {
     .container {
-    min-height: 100vw;
-    grid-auto-rows: 150px;
-}
-/* 
-.products-container {
-    display: none;
-} */
+        min-height: 100vw;
+        grid-auto-rows: 150px;
+    }
 
-  }
-  
+    
+/* .products-container {
+    height: 100%;
+} */
+    .products-container,
+    a {
+        font-size: .5em;
+    }
+
+    #discount {
+        padding: 5px;
+        height: 25px;
+        width: 25px;
+        border-radius: 50%;
+        font-size: .5em;
+    }
+
+    .pagination {
+        /* width: 100%; */
+        gap: .3em;
+        border: 1px solid red;
+        margin: 5px auto;
+        padding-bottom: 10px;
+        list-style: none;
+        font-size: .5em;
+    }
+
+    nav span {
+        font-size: .5em;
+    }
+
+    .pagination button,
+    select, .select-container {
+        display: flex;
+        min-width: 1.5em;
+        height: 1.5em;
+        font-size: 1.3em;
+        padding: 1px;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
 </style>
