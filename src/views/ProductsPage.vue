@@ -86,23 +86,26 @@ export default {
             //         .then(console.log);
         },
         async getProducts() {
-            let url = this.url
-            this.loading = true
-            // this.setLoading(true)
-            console.log("Loading:", this.loading)
-            // let perPage =  this.perPage
-            // await this.$store.dispatch("products/fetchProducts")
-            await this.$store.dispatch("products/fetchProducts", { url })
-            // console.log(this.$store.state.products.productList)
-            // this.setLoading(false)
-            this.loading = false
-            console.log("Loading:", this.loading)
-            this.products = this.$store.state.products.data
-            console.log("Products:", this.$store.state.products.data)
-            console.log("Productslocal:", this.products);
-            console.log("ProductType:", typeof (this.products));
-            console.log("TotalPages:", this.totalPages)
-            return
+            try {
+                let url = this.url
+                this.loading = true
+                // this.setLoading(true)
+                console.log("Loading:", this.loading)
+                // let perPage =  this.perPage
+                // await this.$store.dispatch("products/fetchProducts")
+                await this.$store.dispatch("products/fetchProducts", { url })
+                // console.log(this.$store.state.products.productList)
+                // this.setLoading(false)
+                this.loading = false
+                console.log("Loading:", this.loading)
+                this.products = this.$store.state.products.data
+                console.log("Products:", this.$store.state.products.data)
+                console.log("Productslocal:", this.products);
+                console.log("ProductType:", typeof (this.products));
+                console.log("TotalPages:", this.totalPages)
+            } catch (error) {
+                console.log(error)
+            }
         },
         setPage(page) {
             this.currentPage = page;
@@ -202,7 +205,8 @@ main {
     display: grid;
     /* grid-template-columns: 30% 30% 30%; */
     grid-template-columns: 1fr 1fr 1fr;
-    grid-auto-rows: 400px; /*25em */
+    grid-auto-rows: 400px;
+    /*25em */
     /* grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr; */
     border: 1px solid red;
 }
@@ -216,6 +220,7 @@ main {
     margin: 10px;
     overflow: hidden;
     position: relative;
+    background-color: #f0f0f080;
 }
 
 .product-image {
@@ -282,9 +287,9 @@ select {
 }
 
 nav span {
-        margin: 2px auto;
-        text-align: center;
-    }
+    margin: 2px auto;
+    text-align: center;
+}
 
 @media (max-width: 768px) {
     .container {
@@ -292,8 +297,8 @@ nav span {
         grid-auto-rows: 150px;
     }
 
-    
-/* .products-container {
+
+    /* .products-container {
     height: 100%;
 } */
     .products-container,
@@ -324,7 +329,8 @@ nav span {
     }
 
     .pagination button,
-    select, .select-container {
+    select,
+    .select-container {
         display: flex;
         min-width: 1.5em;
         height: 1.5em;

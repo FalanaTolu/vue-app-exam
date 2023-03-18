@@ -144,7 +144,7 @@ nav {
     width: 100%;
     transition: all ease-out 1s;
     white-space: nowrap;
-    background-color: #f0f0f0;
+    background-color: #f0f0f0f2;
     font-size: 2em;
     z-index: 1;
   }

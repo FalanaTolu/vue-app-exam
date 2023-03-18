@@ -6,10 +6,14 @@
             <div v-if="error" class="error">{{ error }}</div> -->
             <ul class="product">
                 <li><strong>{{ product.title }}</strong></li>
-                <li>
-                    <img :src="product.thumbnail" :alt="product.title" />
+                <li class="thumbnail-container">
+                    <img :src="currentImage" :alt="product.title" />
                 </li>
-                <li>Description:</li>
+                <li class="images-container">
+                    <img v-for="image in product.images" :key="image" :src="image" class="images"
+                        :class="{ active: currentImage === image }" :alt="image" @click.prevent="setImage(image)" />
+                </li>
+                <li><strong>Description:</strong></li>
                 <li>{{ product.description }}</li>
                 <li><strong>Price: </strong>${{ product.price }}</li>
                 <li><strong>Discount: </strong>{{ product.discountPercentage }}%</li>
@@ -17,10 +21,6 @@
                 <li><strong>Rating: </strong>{{ product.rating }}</li>
                 <li><strong>Category: </strong>{{ product.category }}</li>
                 <li><strong>Brand: </strong>{{ product.brand }}</li>
-                <!-- <li>
-               <strong>Image: </strong> 
-                 <img :src="product.images?.[4]" alt=""/>
-             </li> -->
             </ul>
         </div>
     </Layout>
@@ -52,13 +52,21 @@ export default {
     //     return {
     //         loading: false,
     //         error: null,
+    //         currentImage: " ",
     //     }
     // },
     components: {
         Layout,
     },
+    methods: {
+        setImage(image) {
+            this.currentImage = image
+        },
+    },
     setup() {
         let product = ref({});
+
+        let currentImage = ref()
 
         const url = `https://dummyjson.com/products/`
 
@@ -74,6 +82,7 @@ export default {
                 const res = await axios.get(url + route.params.id)
                 console.log(res.data)
                 product.value = res.data
+                currentImage.value = product.value.thumbnail
             } catch (error) {
                 console.log(error)
             }
@@ -90,6 +99,7 @@ export default {
         return {
             fetchProduct,
             product,
+            currentImage,
         };
     },
 };
@@ -134,11 +144,12 @@ export default {
 }
 </script> -->
 
-<style type="text/css">
+<style type="text/css" scoped>
 .product-container {
     width: 100%;
 }
-.product{
+
+.product {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -148,7 +159,36 @@ export default {
     list-style: none;
 }
 
-.product img {
+.thumbnail-container {
+    height: 100%;
     width: 100%;
+}
+
+.thumbnail-container img {
+    height: 300px;
+    width: auto;
+}
+
+.images-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.images {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #0082cf;
+}
+
+.active {
+    border: 3px solid #f00;
+}
+
+@media (max-width: 768px) {
+    .thumbnail-container img {
+        height: auto;
+        max-width: 100%;
+    }
 }
 </style>
