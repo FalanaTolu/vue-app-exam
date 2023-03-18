@@ -140,6 +140,10 @@ form>button {
 }
 
 @media (max-width: 768px) {
+    form {
+        width: 80%;
+    }
+    
     form p {
         font-size: 0.7em;
         white-space: nowrap;
