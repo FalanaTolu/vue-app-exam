@@ -21,3 +21,5 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+PaginationComponent.vue
+PaginationComponent2.vue

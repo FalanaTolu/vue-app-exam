@@ -6,7 +6,6 @@
         <main v-else>
             <div class="container">
                 <div class="products-container" v-for="product in paginatedProducts" :key="product.id">
-                    <!-- <div class="products-container" v-for="product in this.$store.state.products.data" :key="product.id"></div> -->
                     <p id="discount">-{{ product.discountPercentage }}%</p>
                     <img :src="product.thumbnail" :alt="product.title" class="product-image" />
                     <div class="product-info">
@@ -53,12 +52,8 @@
 </template>
 
 <script>
-// import axios from "axios"
-// import { onMounted, ref } from "vue"
 import Layout from "@/components/layouts/LayoutComponent.vue"
 import Loader from '@/components/SpinnerComponent.vue'
-// import store from "@/store/index";
-
 
 export default {
     components: {
@@ -76,33 +71,13 @@ export default {
         }
     },
     methods: {
-        search() {
-            // const search = this.$route.query.search;
-            // if (search) {
-            //     this.search = search;
-            // }
-            //     fetch(`https://dummyjson.com/products/search?q=${searchTerm}`)
-            //         .then(res => res.json())
-            //         .then(console.log);
-        },
         async getProducts() {
             try {
                 let url = this.url
                 this.loading = true
-                // this.setLoading(true)
-                console.log("Loading:", this.loading)
-                // let perPage =  this.perPage
-                // await this.$store.dispatch("products/fetchProducts")
                 await this.$store.dispatch("products/fetchProducts", { url })
-                // console.log(this.$store.state.products.productList)
-                // this.setLoading(false)
                 this.loading = false
-                console.log("Loading:", this.loading)
                 this.products = this.$store.state.products.data
-                console.log("Products:", this.$store.state.products.data)
-                console.log("Productslocal:", this.products);
-                console.log("ProductType:", typeof (this.products));
-                console.log("TotalPages:", this.totalPages)
             } catch (error) {
                 console.log(error)
             }
@@ -113,31 +88,9 @@ export default {
                 this.$emit('page-changed', page)
             }
         },
-        // setPerPage(perPage) {
-        //     this.perPage = perPage;
-        // },
-        // setLoading(loading) {
-        //     this.loading = loading;
-        // },
-        // nextPage() {
 
-        // }, 
-        // previousPage() {
-
-        // },
     },
     computed: {
-        // paginate() {
-        //     {fetchedData?.results.slice(offset, offset + perPage).map((subscriber, index) => (
-        // }
-        // totalPages() {
-        //     const perPage = 9; // skip is amount of items to jump, limit is amount to display per page
-        //     const totalProducts = this.productList?.products?.length
-        //     return Math.ceil(totalProducts / perPage);
-        // },
-        // isLoading() {
-        //     return this.$store.state.products.loading
-        // },
         start() {
             return (this.currentPage - 1) * this.perPage;
         },
@@ -154,36 +107,6 @@ export default {
             return Array.from({ length: this.totalPages }, (value, index) => index + 1)
         },
     },
-    // setup() {
-
-    //     const url = `https://dummyjson.com/products?limit=0&skip=0`
-
-    //     let productList = ref([])
-    //     let perPage = 9
-    //     let totalPages = ref(0)
-
-    //     onMounted(() => { fetchProducts() })
-
-    //     async function fetchProducts() {
-    //         store.commit('auth/setLoading', true)
-    //         try {
-    //             const res = await axios.get(url)
-    //             productList.value = res.data
-    //             store.commit('auth/setLoading', false)
-    //             const totalProducts = productList?.value.total
-    //             totalPages = Math.ceil(totalProducts / perPage)
-    //         } catch (err) {
-    //             console.log(err)
-    //         }
-    //     }
-    //     // console.log(productList.value)
-    //     return {
-    //         totalPages,
-    //         productList,
-    //         fetchProducts,
-    //     }
-
-    // }
     mounted() {
         this.getProducts()
     },

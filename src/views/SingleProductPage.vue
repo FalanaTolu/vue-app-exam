@@ -2,9 +2,9 @@
     <Layout>
         <div class="product-container">
             <h2>Product {{ $route.params.id }}</h2>
-            <!-- <div v-if="loading" class="loading">Loading...</div>
-            <div v-if="error" class="error">{{ error }}</div> -->
-            <ul class="product">
+            <Loader v-if="this.loading" />
+            <!-- <div v-if="error" class="error">{{ error }}</div> -->
+            <ul class="product" v-else>
                 <li><strong>{{ product.title }}</strong></li>
                 <li class="thumbnail-container">
                     <img :src="currentImage" :alt="product.title" />
@@ -13,7 +13,7 @@
                     <img v-for="image in product.images" :key="image" :src="image" class="images"
                         :class="{ active: currentImage === image }" :alt="image" @click.prevent="setImage(image)" />
                 </li>
-                <li><strong>Description:</strong></li>
+                <li style="margin-top : 20px"><strong>Description:</strong></li>
                 <li>{{ product.description }}</li>
                 <li><strong>Price: </strong>${{ product.price }}</li>
                 <li><strong>Discount: </strong>{{ product.discountPercentage }}%</li>
@@ -26,26 +26,12 @@
     </Layout>
 </template>
 
-<!-- <template>
-    <div class="product">
-        <h2>Product {{ $route.params.id }}</h2>
-        <div v-if="loading" class="loading">Loading...</div>
-
-        <div v-if="error" class="error">{{ error }}</div>
-
-        <div v-if="post" class="content">
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.body }}</p>
-        </div>
-    </div>
-</template> -->
-
-
 <script>
 import axios from "axios"
 import { onMounted, ref } from "vue"
 import { useRoute } from "vue-router"
 import Layout from '@/components/layouts/LayoutComponent.vue'
+import Loader from '@/components/SpinnerComponent.vue'
 
 export default {
     // data() {
@@ -57,6 +43,7 @@ export default {
     // },
     components: {
         Layout,
+        Loader,
     },
     methods: {
         setImage(image) {
@@ -65,7 +52,7 @@ export default {
     },
     setup() {
         let product = ref({});
-
+        let loading = ref();
         let currentImage = ref()
 
         const url = `https://dummyjson.com/products/`
@@ -79,7 +66,9 @@ export default {
 
         async function fetchProduct() {
             try {
+                loading.value = true
                 const res = await axios.get(url + route.params.id)
+                loading.value = false
                 console.log(res.data)
                 product.value = res.data
                 currentImage.value = product.value.thumbnail
@@ -88,15 +77,8 @@ export default {
             }
 
         }
-        // const fetchProduct = () => {
-        //   fetch(url + route.params.id)
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //       //set data gotten from API call to our breweryDetails Object
-        //       breweryDetails.value = data;
-        //     });
-        // };
         return {
+            loading,
             fetchProduct,
             product,
             currentImage,
