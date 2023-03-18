@@ -1,14 +1,6 @@
 <template>
   <Loader v-if="loadingState" />
   <router-view v-else></router-view>
-  <!-- <Suspense>
-    <template #default>
-      <router-view></router-view>
-    </template>
-    <template #fallback>
-      <Loader />
-    </template>
-  </Suspense> -->
 </template>
 
 <script>
@@ -21,9 +13,6 @@ export default {
       return this.$store.state.auth.authenticated
     },
     loadingState() {
-      console.log(this.$store.state.auth.loading)
-      // console.log(this.$store.getters['auth/isLoading'])
-      // return this.$store.getters['auth/isLoading'] || this.$store.getters['products/isLoading']
       return this.$store.state.auth.loading
     },
   },
@@ -61,5 +50,4 @@ body {
   height: 100vh;
   width: 100%;
 }
-
 </style>

@@ -9,9 +9,6 @@
 import { TrinityRingsSpinner } from 'epic-spinners'
 
 export default {
-    // props: {
-    //     loading: Boolean,
-    // },
     components: {
         TrinityRingsSpinner
     }

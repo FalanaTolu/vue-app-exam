@@ -38,16 +38,10 @@ export default {
             this.$store.dispatch("auth/asyncLogin", { user, password }).then(() => this.$router.push('/')).catch((error) => console.log(error.message))
         },
     },
-    // created() {
-    //     if (this.$store.state.user) {
-    //         this.$router.push({ path: '/' })
-    //     }
-    // }
 }
 </script>
 
 <style>
-/* @import '@/assets/css/form.css'; */
 
 .form-container {
     display: flex;
@@ -91,24 +85,9 @@ form>input {
     color: inherit;
 }
 
-/* form>input:hover {
-    opacity: 0.5;
-    background-image: linear-gradient(rgb(0, 0, 0/40%) 0 0);
-    background-color: hsl(712, 100%, 60%);
-} */
-
 form>input:focus {
     background-color: rgba(150, 150, 150, 0.2);
 }
-
-/* form>input:invalid {
-    background-color:yellow;
-} */
-
-/* input::placeholder {
-    text-align: center;
-    color: #000;
-} */
 
 #username {
     background-image: url(@/assets/img/user.svg);
@@ -153,15 +132,12 @@ form>button {
     input::placeholder {
         font-size: 0.7em;
     }
-
 }
 
 @media (max-width: 280px) {
-
     form p,
     input::placeholder {
         font-size: 0.5em;
     }
-
 }
 </style>

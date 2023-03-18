@@ -8,7 +8,7 @@
         <router-link to="/products">Products</router-link>
         <button v-on:click="logout" id="logout-btn">Logout<img src="@/assets/img/power.svg" alt="log out"/></button>
       </div>
-      <img src="@/assets/img/shopping-cart3.svg" id="cart" alt="cart" />
+      <img src="@/assets/img/shopping-cart.svg" id="cart" alt="cart" />
       <button class="hamburger" @click="showSidebar">☰</button>
     </nav>
   </div>
@@ -28,10 +28,6 @@ export default {
     },
     logout() {
       this.$store.dispatch("auth/logout").then(() => this.$router.push('/login')).catch((error) => console.log(error.message))
-      // this.$store.dispatch("asyncLogout").then(() =>  this.$router.push('/login'))
-      console.log('AuthState:', this.authState);
-      console.log('Logged on:', this.loggedInState);
-      console.log('User:', this.user);
     },
   },
   computed: {
@@ -50,10 +46,20 @@ export default {
 
 a {
   color: white;
+  padding: 5px;
 }
 
 a:hover {
-  filter: brightness(70%);
+  filter: brightness(30%);
+  font-style: italic;
+}
+
+.router-link-active {
+  color: #2b2c31;
+  /* color: #ff7c73; */
+  /* color: #2c3e50; */
+  font-weight: bold;
+  font-style: italic;
 }
 
 .nav-bar {
@@ -92,14 +98,6 @@ nav {
   color: white;
 }
 
-.router-link-active {
-  color: #2b2c31;
-  /* color: #2c3e50; */
-  font-weight: bold;
-  font-style: italic;
-  /* text-decoration: underline; */
-}
-
 .hamburger {
   display: none;
   height: 30px;
@@ -113,8 +111,10 @@ nav {
   height: 20px;
 }
 
-#logout-btn:hover {
-  filter: brightness(70%);
+#logout-btn {
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 10px;
 }
 
 #logout-btn img {

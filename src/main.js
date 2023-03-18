@@ -50,13 +50,6 @@ const routes = [
     ],
     meta: { requiresAuth: true },
   },
-  // {
-  //   path: "/products/:id",
-  //   name: Product,
-  //   component: Product,
-  //   meta: { requiresAuth: true },
-  // },
-  // { path: '/products/:id', component: Product, children: [{ path: '', name: 'product', component: Product }], },
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
@@ -71,7 +64,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const auth = store.state.auth.authenticated;
-  // const loggedIn = store.getters.auth.isLoggedIn
   if (to.meta.requiresAuth) {
     if (!auth && to.name !== "Login") {
       next({ path: "/login" });
@@ -80,16 +72,5 @@ router.beforeEach(async (to, from, next) => {
     next({ path: "/" });
   } else next();
 });
-
-// router.beforeEach((to, from, next) => {
-//   // const auth = store.state.isAuthenticated;
-//   if (to.meta.requiresAuth && !store.state.isAuthenticated && to.name !== 'Login') {
-//       // if (!auth && to.name !== 'Login') {
-//       // return { name: 'Login' }
-//       next({ path: "/login" });
-//     } else {
-//       next();
-//     }
-// });
 
 app.use(router).use(store).mount("#app");

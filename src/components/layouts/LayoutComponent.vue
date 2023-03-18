@@ -7,7 +7,7 @@
         <slot></slot>
       </main>
       <footer>
-        <slot name="footer"></slot>
+        <p>Copyright © 2023</p>
       </footer>
     </div>
   </template>
@@ -22,12 +22,7 @@ export default {
 </script>
 
 <style scoped>
-/* .layout-container {
-    height: 100%;
-} */
-
 main {
-    height: 94lvh;
+    height: 94vh;
 }
-@media (max-width: 768px) {}
 </style>

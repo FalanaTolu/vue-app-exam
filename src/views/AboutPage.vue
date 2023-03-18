@@ -24,16 +24,3 @@ export default {
     border: 1px solid red;
 }
 </style>
-
-
-<!-- <template>
-    <my-layout>
-      <template v-slot:header>
-        <h1>My App</h1>
-      </template>
-      <p>This is the main content of the page.</p>
-      <template v-slot:footer>
-        <p>Copyright © 2023</p>
-      </template>
-    </my-layout>
-  </template> -->

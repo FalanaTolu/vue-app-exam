@@ -12,7 +12,6 @@
                         <p>$<span>{{ product.price }}</span></p>
                         <p><span>{{ product.stock }} items remaining </span><span> ⭐{{ product.rating }}</span></p>
                         <p>{{ product.title }}</p>
-                        <!-- <button><router-link :to="`/products/${product.id}`">Product -->
                         <button><router-link :to="{ path: '/products/' + product.id }">Product
                                 Details</router-link></button>
                     </div>
@@ -64,7 +63,6 @@ export default {
     data() {
         return {
             url: `https://dummyjson.com/products`,
-            // url: `https://dummyjson.com/products?limit=0`,
             products: null,
             perPage: 9,
             currentPage: 1,
@@ -116,22 +114,14 @@ export default {
 
 <style scoped>
 main {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
     height: 100%;
     width: 100%;
 }
 
 .container {
-    /* height: 100%; */
     display: grid;
-    /* grid-template-columns: 30% 30% 30%; */
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 400px;
-    /*25em */
-    /* grid-template: 1fr 1fr 1fr/ 1fr 1fr 1fr; */
     border: 1px solid red;
 }
 
@@ -154,8 +144,6 @@ main {
 }
 
 .product-info {
-    /* display: flex; */
-    /* flex-direction: column; */
     text-align: left;
     margin-top: 10px;
     white-space: nowrap;
@@ -168,8 +156,6 @@ main {
     position: absolute;
     top: 1.2em;
     right: 1em;
-    /* right: 50%; */
-    /* align-self: flex-end; */
     background-color: #f57c73;
     background-color: palevioletred;
     color: white;
@@ -199,15 +185,8 @@ select {
     border-radius: 5px;
 }
 
-/* .page-link {
-    background-color: aqua;
-    color: white;
-    border: none;
-} */
-
 .active {
     filter: brightness(60%);
-    /* color: #000; */
 }
 
 nav span {
@@ -221,10 +200,6 @@ nav span {
         grid-auto-rows: 150px;
     }
 
-
-    /* .products-container {
-    height: 100%;
-} */
     .products-container,
     a {
         font-size: .5em;
@@ -239,7 +214,6 @@ nav span {
     }
 
     .pagination {
-        /* width: 100%; */
         gap: .3em;
         border: 1px solid red;
         margin: 5px auto;

@@ -3,7 +3,6 @@
         <div class="product-container">
             <h2>Product {{ $route.params.id }}</h2>
             <Loader v-if="this.loading" />
-            <!-- <div v-if="error" class="error">{{ error }}</div> -->
             <ul class="product" v-else>
                 <li><strong>{{ product.title }}</strong></li>
                 <li class="thumbnail-container">
@@ -34,13 +33,6 @@ import Layout from '@/components/layouts/LayoutComponent.vue'
 import Loader from '@/components/SpinnerComponent.vue'
 
 export default {
-    // data() {
-    //     return {
-    //         loading: false,
-    //         error: null,
-    //         currentImage: " ",
-    //     }
-    // },
     components: {
         Layout,
         Loader,
@@ -86,45 +78,6 @@ export default {
     },
 };
 </script>
-
-<!-- <script>
-export default {
-    data() {
-        return {
-            loading: false,
-            post: null,
-            error: null,
-        }
-    },
-    created() {
-        // watch the params of the route to fetch the data again
-        this.$watch(
-            () => this.$route.params,
-            () => {
-                this.fetchData()
-            },
-            // fetch the data when the view is created and the data is
-            // already being observed
-            { immediate: true }
-        )
-    },
-    methods: {
-        fetchData() {
-            this.error = this.post = null
-            this.loading = true
-            // replace `getPost` with your data fetching util / API wrapper
-            axios.get(this.$route.params.id, (err, post) => {
-                this.loading = false
-                if (err) {
-                    this.error = err.toString()
-                } else {
-                    this.post = post
-                }
-            })
-        },
-    },
-}
-</script> -->
 
 <style type="text/css" scoped>
 .product-container {

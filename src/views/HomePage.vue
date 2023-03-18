@@ -7,18 +7,18 @@
           <article>
             <h2>About</h2>
             <p>A brief introduction to the project.</p>
-            <img src="@/assets/img/unsplash2.jpg" alt="" />
+            <img src="@/assets/img/unsplash2.jpg" alt="about picture" />
             <div><router-link to="/about">Learn More...</router-link></div>
           </article>
           <article>
             <h2>Products</h2>
             <p>Check out some of our products</p>
-            <img src="@/assets/img/unsplash3.jpg" alt="" />
+            <img src="@/assets/img/unsplash3.jpg" alt="products picture" />
             <div><router-link to="/products">Shop now...</router-link></div>
           </article>
         </nav>
       </div>
-      
+
     </Layout>
   </div>
 </template>
@@ -30,24 +30,6 @@ import useUser from '@/composables/userComposable'
 export default {
   components: {
     Layout,
-  },
-  computed: {
-    username() {
-      // We will see what `params` is shortly
-      return this.$route.params.username
-    },
-    // user() {
-    //   return this.$store.getters.user
-    // },
-    authState() {
-      return this.$store.state.auth.authenticated
-    },
-    loggedInState() {
-      return this.$store.state.auth.loggedIn
-    },
-  },
-  methods: {
- 
   },
   setup() {
     const { user } = useUser()
@@ -68,21 +50,26 @@ export default {
 }
 
 nav {
-  min-width: 60%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2em;
-  grid-auto-rows: 17em;
-  margin-top: 10px;
+  max-width: 60%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px auto;
 }
 
 article {
+  /* width: 100%; */
+  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 5px;
   border-radius: 10px;
-  background: linear-gradient(rgba(240,240,240,0.5));
-  box-shadow: 0px 8px 10px 0px rgba(0,0,0,0.2);
+  gap: .5em;
+  align-items: center;
+  border: 1px solid rgb(240, 240, 240);
+  background: linear-gradient(rgba(240, 240, 240, 0.5));
+  box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);
+  transition: all ease 0.8s;
 }
 
 article:hover {
@@ -90,8 +77,17 @@ article:hover {
 }
 
 article img {
-  height: 50px;
-  width: 50px;
+  height: 150px;
+  width: 250px;
+  /* align-self: center; */
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 2em;
+  }
 }
 </style>
   

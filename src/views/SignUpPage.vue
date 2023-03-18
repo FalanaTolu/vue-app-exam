@@ -36,18 +36,6 @@ export default {
             this.$store.dispatch('auth/register', data).then(() => this.$router.push('/')).catch((error) => console.log(error.message))
 
         },
-        // validatePassword() {
-        //     if (this.password !== "" && this.passwordConfirm !== "") {
-        //         if (this.password !== this.passwordConfirm) {
-        //             alert("Passwords do not match");
-        //             return false
-        //         }
-        //         return true
-        //     } else {
-        //         alert("Please enter and confirm password");
-        //         return false
-        //     }
-        // }, 
         validatePassword() {
             if (this.password == "" || this.passwordConfirm == "") {
                 alert("Please enter and confirm password");

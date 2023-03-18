@@ -21,12 +21,6 @@
   padding: 1.5em;
 }
 
-/* .not-found-text {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-} */
-
 .not-found-text > * {
   margin-bottom: 1em;
 }

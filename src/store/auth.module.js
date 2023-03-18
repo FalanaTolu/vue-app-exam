@@ -4,7 +4,8 @@ export default {
     authenticated: false,
     loggedIn: false,
     loading: false,
-    user: "",
+    user: "Tolu",
+    password: "12345",
   },
   mutations: {
     setAuth(state, authenticated) {
@@ -12,6 +13,9 @@ export default {
     },
     authUser(state, payload) {
       state.user = payload;
+    },
+    setPassword(state, payload) {
+      state.password = payload;
     },
     setLoggedIn(state, loggedIn) {
       state.loggedIn = loggedIn;
@@ -21,26 +25,14 @@ export default {
     },
   },
   actions: {
-    // login({ commit }, data) {
-    //   commit("auth")
-    //   commit("authUser", data.user)
-    //   commit("loggedIn")
-    //   localStorage.setItem("user", data.user)
-    //   console.log(data);
-    //   console.log('User:', this.state.user);
-    //   console.log('AuthState:', this.state.isAuthenticated);
-    //   console.log('Logged on:', this.state.isLoggedIn);
-    // },
     logout({ commit }) {
-      // localStorage.removeItem('user')
       commit("setLoggedIn", false);
       commit("authUser", "");
       commit("setAuth", false);
       sessionStorage.clear();
-      // sessionStorage.removeItem('vuex')
     },
     async register({ commit }, data) {
-      const timeout = 2000;
+      const timeout = 1000;
       commit("setLoading", true);
 
       try {
@@ -51,27 +43,18 @@ export default {
           }, timeout);
         });
 
-        // Handle successful login
-        // commit("register");
         commit("setLoading", false);
         commit("setAuth", true);
         commit("authUser", data.user);
+        commit("setPassword", data.password);
         commit("setLoggedIn", true);
-        // console.log(data);
-        // localStorage.setItem("user", data.user)
-        // this.state.user = data.user;
-        console.log(`Logged in as ${this.state.auth.user}`);
-        console.log("Loading:", this.state.auth.loading);
-        console.log("AuthState:", this.state.auth.authenticated);
-        console.log("Logged on:", this.state.auth.loggedIn);
       } catch (error) {
-        // Handle login error
         console.error(`Error logging in: ${error.message}`);
       }
     },
     async asyncLogin({ commit }, data) {
-      // Simulate a delay of 2 seconds
-      const timeout = 2000;
+      // Simulate a delay
+      const timeout = 1000;
       commit("setLoading", true);
 
       try {
@@ -82,44 +65,28 @@ export default {
           }, timeout);
         });
 
-        // Handle successful login
-        commit("setLoading", false);
-        commit("setAuth", true);
-        commit("authUser", data.user);
-        commit("setLoggedIn", true);
-        console.log(`Logged in as ${this.state.auth.user}`);
-        console.log("Loading:", this.state.auth.loading);
-        console.log("AuthState:", this.state.auth.authenticated);
-        console.log("Logged on:", this.state.auth.loggedIn);
-        // console.log(this.getters['auth/isLoading'])
+        // console.log(`Logged Getter: ${this.getters?.auth?.isLoading}`)
+
+        if (
+          this.state.auth.user == data.user &&
+          this.state.auth.password == data.password
+        ) {
+          commit("setLoading", false);
+          commit("setAuth", true);
+          commit("authUser", data.user);
+          commit("setLoggedIn", true);
+        } else {
+          commit("setLoading", false);
+          alert("User not verified or password incorrect");
+        }
       } catch (error) {
-        // Handle login error
         console.error(`Error logging in: ${error.message}`);
       }
     },
-    //   asyncLogin({ commit }) {
-    //   setTimeout(() => {
-    //     commit("auth");
-    //   }, 1000)
-    //   localStorage.setItem("user", this.state.user)
-    // },
-    // asyncLogout({ commit }) {
-    //   setTimeout(() => {
-    //     commit("unAuth");
-    //   }, 1000);
-    //   localStorage.removeItem("user");
-    // },
   },
   getters: {
     isLoading: (state) => state.loading,
-    isLoggedIn: (state) => state.loggedIn,
+    isLoggedIn: (state) => state.auth.loggedIn,
     isAuthenticated: (state) => state.authenticated,
-    // isAuthenticated: (state) => state.isAuthenticated,
-    // isLoggedIn: (state) => state.isLoggedIn,
-    // user: (state) => state.user,
-    // isLoggedIn(state) {
-    // if (state.user) return state.isLoggedIn = true
-    //   return (state.isLoggedIn = state.user ? true : false);
-    // },
   },
 };
