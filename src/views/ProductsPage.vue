@@ -12,6 +12,7 @@
                         <p>$<span>{{ product.price }}</span></p>
                         <p><span>{{ product.stock }} items remaining </span><span> ⭐{{ product.rating }}</span></p>
                         <p>{{ product.title }}</p>
+                        <!-- <button><router-link :to="`/products/${product.id}`">Product -->
                         <button><router-link :to="{ path: '/products/' + product.id }">Product
                                 Details</router-link></button>
                     </div>

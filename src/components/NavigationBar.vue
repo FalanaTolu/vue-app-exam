@@ -92,7 +92,7 @@ nav {
   color: white;
 }
 
-.router-link-exact-active {
+.router-link-active {
   color: #2b2c31;
   /* color: #2c3e50; */
   font-weight: bold;

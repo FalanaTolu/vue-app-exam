@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import { h } from "vue";
+import { RouterView } from "vue-router";
 import Home from "./views/HomePage.vue";
 import About from "./views/AboutPage.vue";
 import Login from "./views/LoginPage.vue";
@@ -41,15 +43,19 @@ const routes = [
   {
     path: "/products",
     name: Products,
-    component: Products,
+    component: { render: () => h(RouterView) },
+    children: [
+      { path: "", name: "Products", component: Products },
+      { path: "/products/:id", name: "product", component: Product },
+    ],
     meta: { requiresAuth: true },
   },
-  {
-    path: "/products/:id",
-    name: Product,
-    component: Product,
-    meta: { requiresAuth: true },
-  },
+  // {
+  //   path: "/products/:id",
+  //   name: Product,
+  //   component: Product,
+  //   meta: { requiresAuth: true },
+  // },
   // { path: '/products/:id', component: Product, children: [{ path: '', name: 'product', component: Product }], },
   {
     path: "/:catchAll(.*)",
@@ -73,7 +79,6 @@ router.beforeEach(async (to, from, next) => {
   } else if (auth && to.meta.disableIfLoggedIn) {
     next({ path: "/" });
   } else next();
-
 });
 
 // router.beforeEach((to, from, next) => {
