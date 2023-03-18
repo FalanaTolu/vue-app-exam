@@ -225,10 +225,11 @@ main {
 }
 
 .product-info {
-    /* display: flex;
-    flex-direction: column; */
+    /* display: flex; */
+    /* flex-direction: column; */
     text-align: left;
     margin-top: 10px;
+    white-space: nowrap;
 }
 
 #discount {
