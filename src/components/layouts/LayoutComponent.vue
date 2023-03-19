@@ -7,7 +7,7 @@
         <slot></slot>
       </main>
       <footer>
-        <p>Copyright © 2023</p>
+        <slot name="footer"></slot>
       </footer>
     </div>
   </template>
@@ -23,6 +23,6 @@ export default {
 
 <style scoped>
 main {
-    height: 94vh;
+    height: 94lvh;
 }
 </style>

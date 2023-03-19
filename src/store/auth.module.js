@@ -27,7 +27,6 @@ export default {
   actions: {
     logout({ commit }) {
       commit("setLoggedIn", false);
-      commit("authUser", "");
       commit("setAuth", false);
       // sessionStorage.clear();
     },
@@ -68,8 +67,8 @@ export default {
         // console.log(`Logged Getter: ${this.getters?.auth?.isLoading}`)
 
         if (
-          this.state.auth.user == data.user &&
-          this.state.auth.password == data.password
+          this.state.auth.user == data?.user &&
+          this.state.auth.password == data?.password
         ) {
           commit("setLoading", false);
           commit("setAuth", true);

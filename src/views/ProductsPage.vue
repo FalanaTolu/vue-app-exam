@@ -118,6 +118,7 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 400px;
+    gap: 1em;
 }
 
 .products-container {
@@ -195,6 +196,7 @@ nav span {
     .container {
         min-height: 100vw;
         grid-auto-rows: 150px;
+        gap: 0;
     }
 
     .products-container,
