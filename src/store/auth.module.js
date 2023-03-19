@@ -29,7 +29,7 @@ export default {
       commit("setLoggedIn", false);
       commit("authUser", "");
       commit("setAuth", false);
-      sessionStorage.clear();
+      // sessionStorage.clear();
     },
     async register({ commit }, data) {
       const timeout = 1000;

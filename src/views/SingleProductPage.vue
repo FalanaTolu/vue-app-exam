@@ -61,7 +61,6 @@ export default {
                 loading.value = true
                 const res = await axios.get(url + route.params.id)
                 loading.value = false
-                console.log(res.data)
                 product.value = res.data
                 currentImage.value = product.value.thumbnail
             } catch (error) {

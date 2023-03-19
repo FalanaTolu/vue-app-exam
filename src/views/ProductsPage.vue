@@ -122,14 +122,12 @@ main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 400px;
-    border: 1px solid red;
 }
 
 .products-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid black;
     padding: 10px;
     margin: 10px;
     overflow: hidden;
@@ -156,7 +154,6 @@ main {
     position: absolute;
     top: 1.2em;
     right: 1em;
-    background-color: #f57c73;
     background-color: palevioletred;
     color: white;
     padding: 5px;
@@ -215,7 +212,6 @@ nav span {
 
     .pagination {
         gap: .3em;
-        border: 1px solid red;
         margin: 5px auto;
         padding-bottom: 10px;
         list-style: none;

@@ -21,6 +21,5 @@ export default {
 <style scoped>
 .main {
     height: 100%;
-    border: 1px solid red;
 }
 </style>

@@ -111,12 +111,6 @@ nav {
   height: 20px;
 }
 
-#logout-btn {
-  padding: 5px;
-  border: 1px solid white;
-  border-radius: 10px;
-}
-
 #logout-btn img {
   display: none;
   height: 20px;
