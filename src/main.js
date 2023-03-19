@@ -46,7 +46,7 @@ const routes = [
     component: { render: () => h(RouterView) },
     children: [
       { path: "", name: "Products", component: Products },
-      { path: "/products/:id", name: "product", component: Product },
+      { path: "/products/:id", name: "Product", component: Product },
     ],
     meta: { requiresAuth: true },
   },

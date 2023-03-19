@@ -4,17 +4,17 @@
       <div class="home">
         <h1>Welcome {{ user }}</h1>
         <nav>
-          <article>
+          <article @click="goToAbout">
             <h2>About</h2>
             <p>A brief introduction to the project.</p>
             <img src="@/assets/img/unsplash2.jpg" alt="about picture" />
-            <div><router-link to="/about">Learn More...</router-link></div>
+            <div style="align-self: flex-end;"><router-link to="/about">Learn More...</router-link></div>
           </article>
-          <article>
+          <article @click="goToProducts">
             <h2>Products</h2>
             <p>Check out some of our products</p>
             <img src="@/assets/img/unsplash3.jpg" alt="products picture" />
-            <div><router-link to="/products">Shop now...</router-link></div>
+            <div style="align-self: flex-end;"><router-link to="/products">Shop now...</router-link></div>
           </article>
         </nav>
       </div>
@@ -30,6 +30,14 @@ import useUser from '@/composables/userComposable'
 export default {
   components: {
     Layout,
+  },
+  methods: {
+    goToAbout() {
+      this.$router.push({ path: "/about" })
+    },  
+    goToProducts() {
+      this.$router.push({ path: "/products" })
+    },
   },
   setup() {
     const { user } = useUser()
@@ -62,7 +70,7 @@ article {
   width: 300px;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   gap: .5em;
   align-items: center;

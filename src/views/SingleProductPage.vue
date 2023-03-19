@@ -1,7 +1,6 @@
 <template>
     <Layout>
         <div class="product-container">
-            <h2>Product {{ $route.params.id }}</h2>
             <Loader v-if="this.loading" />
             <ul class="product" v-else>
                 <li><strong>{{ product.title }}</strong></li>

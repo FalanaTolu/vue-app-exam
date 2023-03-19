@@ -1,11 +1,11 @@
 <template>
     <Layout>
         <h1>Products</h1>
-        <p>This is the products page</p>
         <Loader v-if="this.loading" />
         <main v-else>
             <div class="container">
-                <div class="products-container" v-for="product in paginatedProducts" :key="product.id">
+                <div class="products-container" v-for="product in paginatedProducts" :key="product.id"
+                    @click="(() => this.$router.push({ path: '/products/' + product.id }))">
                     <p id="discount">-{{ product.discountPercentage }}%</p>
                     <img :src="product.thumbnail" :alt="product.title" class="product-image" />
                     <div class="product-info">
@@ -39,7 +39,7 @@
 
                     <li><button @click.prevent="setPage(totalPages)" class="page-link">{{ ">>" }}</button></li>
 
-                    <li class="select-container"><select v-model="this.perPage" name="perPage" id="perPage">
+                    <li class="select-container"><select v-model="this.perPage" name="perPage" id="perPage" @change="setPage(1)">
                             <option>9</option>
                             <option>21</option>
                             <option>30</option>
@@ -83,11 +83,7 @@ export default {
         },
         setPage(page) {
             this.currentPage = page;
-            if (page >= 1 && page <= this.totalPages) {
-                this.$emit('page-changed', page)
-            }
         },
-
     },
     computed: {
         start() {
@@ -133,6 +129,10 @@ main {
     overflow: hidden;
     position: relative;
     background-color: #f0f0f080;
+}
+
+.products-container:hover {
+    transform: scale(1.05);
 }
 
 .product-image {
