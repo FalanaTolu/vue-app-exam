@@ -6,15 +6,17 @@
         <router-link to="/">Home</router-link>
         <router-link to="/about">About</router-link>
         <router-link to="/products">Products</router-link>
+        <router-link to="/cart">Cart</router-link>
         <button v-on:click="logout" id="logout-btn">Logout<img src="@/assets/img/power.svg" alt="log out"/></button>
       </div>
-      <img src="@/assets/img/shopping-cart.svg" id="cart" alt="cart" />
+      <router-link to="/cart" class="cart"><img src="@/assets/img/shopping-cart.svg" alt="cart" /><span v-show="cartItemCount"> {{cartItemCount}}</span></router-link>
       <button class="hamburger" @click="showSidebar">☰</button>
     </nav>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'NavigationBar',
   data() {
@@ -36,6 +38,9 @@ export default {
     },
     loggedInState() {
       return this.$store.state.auth.loggedIn
+    },
+    cartItemCount() {
+      return this.$store.getters['cart/cartItemCount']
     },
   },
 }
@@ -107,8 +112,28 @@ nav {
   border: 1px solid white;
 }
 
-#cart {
+.cart {
+  height: fit-content;
+  position: relative;
+}
+
+.cart img {
   height: 20px;
+}
+
+.cart span {
+  height: 10px;
+  width: 10px;
+  text-align: center;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  margin-left: 5px;
+  background-color: palevioletred;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 7px;
+  right: 0;
 }
 
 #logout-btn img {

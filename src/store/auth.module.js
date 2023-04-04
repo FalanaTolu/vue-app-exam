@@ -31,7 +31,6 @@ export default {
       // sessionStorage.clear();
     },
     async register({ commit }, data) {
-      const timeout = 1000;
       commit("setLoading", true);
 
       try {
@@ -39,7 +38,7 @@ export default {
         await new Promise((resolve) => {
           setTimeout(() => {
             resolve();
-          }, timeout);
+          }, 1000);
         });
 
         commit("setLoading", false);
@@ -53,7 +52,6 @@ export default {
     },
     async asyncLogin({ commit }, data) {
       // Simulate a delay
-      const timeout = 1000;
       commit("setLoading", true);
 
       try {
@@ -61,7 +59,7 @@ export default {
         await new Promise((resolve) => {
           setTimeout(() => {
             resolve();
-          }, timeout);
+          }, 1000);
         });
 
         // console.log(`Logged Getter: ${this.getters?.auth?.isLoading}`)

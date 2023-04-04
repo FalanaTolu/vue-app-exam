@@ -1,11 +1,11 @@
 <template>
     <Layout>
         <h1>Products</h1>
-        <Loader v-if="this.loading" />
+        <Loader v-if="loading" />
         <main v-else>
             <div class="container">
-                <div class="products-container" v-for="product in paginatedProducts" :key="product.id"
-                    @click="(() => this.$router.push({ path: '/products/' + product.id }))">
+                <div class="products-container" v-for="product in paginatedProducts" :key="product.id">
+                    <!-- @click="(() => this.$router.push({ path: '/products/' + product.id }))"> -->
                     <p id="discount">-{{ product.discountPercentage }}%</p>
                     <img :src="product.thumbnail" :alt="product.title" class="product-image" />
                     <div class="product-info">
@@ -19,7 +19,7 @@
 
             </div>
             <nav>
-                <span>Showing items {{ this.start + 1 }} to {{ this.end }} of {{ this.products?.length }}</span>
+                <span>Showing items {{ start + 1 }} to {{ end }} of {{ products?.length }}</span>
                 <ul class="pagination">
 
                     <li><button @click.prevent="setPage(1)" class="page-link">{{ "<<" }}</button>
@@ -39,7 +39,7 @@
 
                     <li><button @click.prevent="setPage(totalPages)" class="page-link">{{ ">>" }}</button></li>
 
-                    <li class="select-container"><select v-model="this.perPage" name="perPage" id="perPage" @change="setPage(1)">
+                    <li class="select-container"><select v-model="perPage" name="perPage" id="perPage" @change="setPage(1)">
                             <option>9</option>
                             <option>21</option>
                             <option>30</option>
@@ -76,7 +76,7 @@ export default {
                 this.loading = true
                 await this.$store.dispatch("products/fetchProducts", { url })
                 this.loading = false
-                this.products = this.$store.state.products.data
+                this.products = this.$store.state.products.products
             } catch (error) {
                 console.log(error)
             }

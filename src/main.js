@@ -9,6 +9,7 @@ import Login from "./views/LoginPage.vue";
 import SignUp from "./views/SignUpPage.vue";
 import Products from "./views/ProductsPage.vue";
 import Product from "./views/SingleProductPage.vue";
+import Cart from "./views/CartPage.vue";
 import NotFound from "./views/NotFound.vue";
 import store from "./store/index";
 
@@ -39,6 +40,12 @@ const routes = [
     name: SignUp,
     component: SignUp,
     meta: { disableIfLoggedIn: true },
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
+    meta: { requiresAuth: true },
   },
   {
     path: "/products",

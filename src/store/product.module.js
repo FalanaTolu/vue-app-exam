@@ -4,12 +4,12 @@ export default {
   namespaced: true,
   state: {
     error: null,
-    data: null,
+    products: [],
     totalPages: 0,
   },
   mutations: {
-    setData(state, data) {
-      state.data = data;
+    setProducts(state, data) {
+      state.products = data;
     },
     setError(state, error) {
       state.error = error;
@@ -20,7 +20,7 @@ export default {
       // commit("setLoading", true);
       try {
         const res = await axios.get(info.url);
-        commit("setData", res.data.products);
+        commit("setProducts", res.data.products);
         commit("setError", null);
         // commit("setLoading", false);
       } catch (error) {
@@ -29,7 +29,7 @@ export default {
     },
   },
   getters: {
-    getData: (state) => state.data,
+    getProducts: (state) => state.products,
     getError: (state) => state.error,
     // isLoading: (state) => state.loading,
   },

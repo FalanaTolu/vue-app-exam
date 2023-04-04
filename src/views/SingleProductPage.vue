@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <div class="product-container">
-            <Loader v-if="this.loading" />
+            <Loader v-if="loading" />
             <ul class="product" v-else>
                 <li><strong>{{ product.title }}</strong></li>
                 <li class="thumbnail-container">
@@ -19,6 +19,7 @@
                 <li><strong>Rating: </strong>{{ product.rating }}</li>
                 <li><strong>Category: </strong>{{ product.category }}</li>
                 <li><strong>Brand: </strong>{{ product.brand }}</li>
+                <li><button type="button" @click="addToCart(product)">Add to Cart</button></li>
             </ul>
         </div>
     </Layout>
@@ -39,6 +40,10 @@ export default {
     methods: {
         setImage(image) {
             this.currentImage = image
+        },
+        addToCart(product) {
+            // this.$store.dispatch("cart/addToCart", product);
+            this.$store.dispatch("cart/addToCart", product).then(() => this.$router.push('/cart')).catch((error) => console.log(error.message))
         },
     },
     setup() {
@@ -76,6 +81,46 @@ export default {
     },
 };
 </script>
+
+<!-- <script setup>
+import axios from "axios"
+import { onMounted, ref } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import Layout from '@/components/layouts/LayoutComponent.vue'
+import Loader from '@/components/SpinnerComponent.vue'
+import store from "@/store"
+
+let product = ref({});
+let loading = ref(false);
+let currentImage = ref()
+
+const url = `https://dummyjson.com/products/`
+const route = useRoute()
+const router = useRouter()
+
+const setImage = (image) => { currentImage.value = image };
+
+//const removeFromCart = (product) => { this.$store.dispatch("cart/removeFromCart", product)};
+
+//const someFunction = computed(() => { this.currentImage = image });
+
+onMounted(() => { fetchProduct() })
+
+async function fetchProduct() {
+    try {
+        loading.value = true
+        const res = await axios.get(url + route.params.id)
+        loading.value = false
+        product.value = res.data
+        currentImage.value = product.value.thumbnail
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const addToCart = (product) => { store.dispatch("cart/addToCart", product).then(() => router.push('/cart')).catch((error) => console.log(error.message)) };
+
+</script> -->
 
 <style type="text/css" scoped>
 .product-container {
