@@ -71,12 +71,14 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin: 20px;
+    width: 90%;
 }
 
 .cart-image {
     width: 100px;
     height: 100px;
     object-fit: contain;
+    max-width: 30%;
 }
 
 .cart-info {
@@ -86,6 +88,8 @@ export default {
     align-items: flex-start;
     /* height: 70%; */
     width: 15em;
+    max-width: 60%;
+    height: 100px;
     margin-left: 1em;
     padding: 1em .5em;
     border: 1px solid black;
@@ -95,24 +99,35 @@ export default {
 
 .remove-item {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 5px;
     border: none;
     background-color: transparent;
     font-size: 1.2em;
     font-weight: bold;
-    color: red;
+    color: grey;
 }
 
 .item-quantity {
     display: flex;
     align-items: center;
     align-self: flex-end;
-    margin: 20px;
+    margin-top: 10px;
 }
 .item-quantity button {
     min-width: 1.5em;
     margin: .5em;
+}
+
+@media (max-width: 480px) {
+
+    .cart-item {
+    margin: 20px 10px;
+}
+    .cart-info {
+        font-size: .7em;
+        height: 100px;
+    }
 }
 
 </style>

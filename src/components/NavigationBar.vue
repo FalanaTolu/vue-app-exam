@@ -40,7 +40,7 @@ export default {
       return this.$store.state.auth.loggedIn
     },
     cartItemCount() {
-      return this.$store.getters['cart/cartItemCount']
+      return this.$store.getters['cart/totalQuantity']
     },
   },
 }
@@ -87,6 +87,7 @@ nav {
   gap: 20px;
   list-style: none;
   /* min-width: 100%; */
+
 }
 
 .nav-link button {
@@ -141,7 +142,7 @@ nav {
   height: 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   a, #logout-btn {
   color: #0082cf;
 }
